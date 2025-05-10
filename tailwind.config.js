@@ -6,16 +6,18 @@ module.exports = {
       fontFamily: {
         hand: ['"Patrick Hand"', 'cursive'],
       },
-    },
-  },
-  plugins: [],
-}
-
-module.exports = {
-  theme: {
-    extend: {
       colors: {
-        beige: '#f5f5dc', // light beige
+        beige: '#f5f5dc',
+        pink: {
+          300: '#f9a8d4',
+          500: '#ec4899',
+        },
+        orange: {
+          200: '#fed7aa',
+        },
+        green: {
+          400: '#4ade80',
+        },
       },
     },
   },

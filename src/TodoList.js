@@ -3,11 +3,19 @@ import React, { useState } from "react";
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
+  const [deadline, setDeadline] = useState(""); // State for deadline
 
   const handleAdd = () => {
     if (!input.trim()) return;
-    setTodos([...todos, { text: input, completed: false }]);
+    const newTask = {
+      text: input,
+      completed: false,
+      timestamp: new Date().toLocaleString(),
+      deadline: deadline, // Store the deadline
+    };
+    setTodos([...todos, newTask]);
     setInput("");
+    setDeadline(""); // Clear the deadline after adding the task
   };
 
   const handleToggle = (index) => {
@@ -20,47 +28,66 @@ function TodoList() {
     setTodos(todos.filter((_, i) => i !== index));
   };
 
-  return (
-    <div className="min-h-screen bg-pink-50 flex flex-col items-center p-8 font-sans">
-      <h1 className="text-4xl font-bold mb-8 text-gray-800">To Do List</h1>
+  // Format the deadline into a more formal format
+  const formatDeadline = (deadline) => {
+    if (!deadline) return "";
+    const date = new Date(deadline);
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return `Due on: ${date.toLocaleDateString('en-US', options)}`;
+  };
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-screen-xl">
-        {/* Left Column: To Do List */}
-        <div className="bg-pink-200 rounded-2xl p-6 shadow-lg">
-          <h2 className="text-xl font-semibold mb-4 text-gray-700">To Do List</h2>
-          <div className="flex gap-2 mb-4">
+  return (
+    <div className="min-h-screen bg-pink-50 flex flex-col items-center p-12 font-sans">
+      <h1 className="text-5xl font-bold mb-8 text-gray-800">To Do List</h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full max-w-screen-xl">
+        {/* Left: To Do Input + List */}
+        <div className="bg-pink-200 rounded-2xl p-8 shadow-xl flex flex-col">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-700">Add Task</h2>
+          <div className="flex flex-col gap-4 mb-6">
             <input
-              className="flex-1 p-2 rounded border border-pink-300"
-              placeholder="Add a new task"
+              className="p-4 rounded border border-pink-300 text-lg"
+              placeholder="Enter a new task"
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
+            <input
+              type="datetime-local"
+              className="p-4 rounded border border-pink-300 text-lg"
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)} // Set deadline
+            />
             <button
-              className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600"
+              className="bg-pink-500 text-white px-6 py-3 rounded-lg hover:bg-pink-600 text-lg"
               onClick={handleAdd}
             >
-              Add
+              Add Task
             </button>
           </div>
-          <ul>
+
+          <ul className="space-y-4">
             {todos.map((todo, index) => (
               <li
                 key={index}
-                className="flex items-center justify-between py-1 border-b border-pink-300"
+                className="flex items-center justify-between py-4 border-b border-pink-300"
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
                   <input
                     type="checkbox"
                     checked={todo.completed}
                     onChange={() => handleToggle(index)}
+                    className="text-lg"
                   />
                   <span
                     className={`${
                       todo.completed ? "line-through text-gray-400" : "text-gray-700"
-                    }`}
+                    } text-lg`}
                   >
                     {todo.text}
                   </span>
+                </div>
+                <div className="text-sm text-gray-600">
+                  {todo.deadline && <span>{formatDeadline(todo.deadline)}</span>}
                 </div>
                 <button
                   className="text-red-400 hover:text-red-600 text-sm"
@@ -73,29 +100,42 @@ function TodoList() {
           </ul>
         </div>
 
-        {/* Middle Column: Notes */}
-        <div className="bg-orange-200 rounded-2xl p-6 shadow-md h-fit">
-          <h2 className="text-lg font-semibold mb-2 text-gray-700">Notes</h2>
-          <textarea
-            placeholder="Write your notes here..."
-            className="w-full h-40 p-2 rounded border border-orange-300"
-          ></textarea>
+        {/* Middle: Upcoming Tasks */}
+        <div className="bg-purple-200 rounded-2xl p-8 shadow-xl flex flex-col">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-700">Upcoming Tasks</h2>
+          <ul className="space-y-4">
+            {todos.filter((t) => !t.completed).length === 0 ? (
+              <li className="text-gray-500 italic text-lg">No upcoming tasks.</li>
+            ) : (
+              todos
+                .filter((t) => !t.completed)
+                .map((todo, idx) => (
+                  <li key={idx} className="text-lg text-gray-800">
+                    • {todo.text}{" "}
+                    <span className="text-xs text-gray-600 block">{todo.timestamp}</span>
+                    <span className="text-xs text-gray-500 block">
+                      {todo.deadline && formatDeadline(todo.deadline)}
+                    </span>
+                  </li>
+                ))
+            )}
+          </ul>
         </div>
 
-        {/* Right Column: Focus & Remember */}
-        <div className="flex flex-col gap-6">
-          <div className="bg-teal-200 rounded-2xl p-6 shadow-md">
-            <h2 className="text-lg font-semibold mb-2 text-gray-700">Focus</h2>
+        {/* Right: Focus + Reminder */}
+        <div className="flex flex-col gap-8">
+          <div className="bg-teal-200 rounded-2xl p-8 shadow-xl">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-700">Focus</h2>
             <textarea
               placeholder="What's your main focus?"
-              className="w-full h-32 p-2 rounded border border-teal-300"
+              className="w-full h-48 p-4 rounded-lg border border-teal-300 text-lg"
             ></textarea>
           </div>
 
-          <div className="bg-green-300 rounded-xl p-4 shadow-md">
-            <h2 className="text-lg font-semibold text-white mb-2">Remember</h2>
-            <p className="text-white text-sm">
-              💡 Prioritize your top 3 tasks and don’t forget to take breaks!
+          <div className="bg-green-300 rounded-2xl p-6 shadow-xl">
+            <h2 className="text-2xl font-semibold text-white mb-4">Remember</h2>
+            <p className="text-white text-lg">
+              💡 Prioritize your top 3 tasks and take breaks often!
             </p>
           </div>
         </div>
