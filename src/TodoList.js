@@ -24,9 +24,20 @@ function TodoList() {
     <div className="min-h-screen bg-pink-50 flex flex-col items-center p-8 font-sans">
       <h1 className="text-4xl font-bold mb-8 text-gray-800">To Do List</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-screen-xl">
-        {/* To Do Section */}
-        <div className="bg-pink-200 rounded-2xl p-6 shadow-lg col-span-1 md:col-span-2 lg:col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full max-w-screen-xl">
+        {/* Left Column: Notes */}
+        <div className="flex flex-col gap-6">
+          <div className="bg-orange-200 rounded-2xl p-6 shadow-md">
+            <h2 className="text-lg font-semibold mb-2 text-gray-700">Notes</h2>
+            <textarea
+              placeholder="Write your notes here..."
+              className="w-full h-40 p-2 rounded border border-orange-300"
+            ></textarea>
+          </div>
+        </div>
+
+        {/* Center Column: To Do List */}
+        <div className="bg-pink-200 rounded-2xl p-6 shadow-lg">
           <h2 className="text-xl font-semibold mb-4 text-gray-700">To Do List</h2>
           <div className="flex gap-2 mb-4">
             <input
@@ -73,30 +84,22 @@ function TodoList() {
           </ul>
         </div>
 
-        {/* Notes Section */}
-        <div className="bg-orange-200 rounded-2xl p-6 shadow-md col-span-1 lg:col-span-1">
-          <h2 className="text-lg font-semibold mb-2 text-gray-700">Notes</h2>
-          <textarea
-            placeholder="Write your notes here..."
-            className="w-full h-40 p-2 rounded border border-orange-300"
-          ></textarea>
-        </div>
+        {/* Right Column: Focus & Remember */}
+        <div className="flex flex-col gap-6">
+          <div className="bg-teal-200 rounded-2xl p-6 shadow-md">
+            <h2 className="text-lg font-semibold mb-2 text-gray-700">Focus</h2>
+            <textarea
+              placeholder="What's your main focus?"
+              className="w-full h-32 p-2 rounded border border-teal-300"
+            ></textarea>
+          </div>
 
-        {/* Focus Section */}
-        <div className="bg-teal-200 rounded-2xl p-6 shadow-md col-span-1 lg:col-span-1">
-          <h2 className="text-lg font-semibold mb-2 text-gray-700">Focus</h2>
-          <textarea
-            placeholder="What's your main focus?"
-            className="w-full h-32 p-2 rounded border border-teal-300"
-          ></textarea>
-        </div>
-
-        {/* Remember Section */}
-        <div className="bg-green-300 rounded-xl p-4 shadow-md col-span-1 md:col-span-2 lg:col-span-4">
-          <h2 className="text-lg font-semibold text-white mb-2">Remember</h2>
-          <p className="text-white text-sm">
-            💡 Prioritize your top 3 tasks and don’t forget to take breaks!
-          </p>
+          <div className="bg-green-300 rounded-xl p-4 shadow-md">
+            <h2 className="text-lg font-semibold text-white mb-2">Remember</h2>
+            <p className="text-white text-sm">
+              💡 Prioritize your top 3 tasks and don’t forget to take breaks!
+            </p>
+          </div>
         </div>
       </div>
     </div>
