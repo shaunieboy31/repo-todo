@@ -1,4 +1,4 @@
-ReactJS Todo List App
+ReactJS Todo List App;
 This project is a simple Todo List Application built with ReactJS. It demonstrates the use of components, state management with `useState`, and basic event handling in React. It allows users to manage their daily tasks effectively by letting them add, view, mark, and optionally delete todo items. The app showcases fundamental React concepts such as component-based architecture, state management using hooks, and event handling.
 
 Objective
