@@ -1,6 +1,6 @@
 {
 
-  "homepage": "https://github.com/shaunieboy31/repo-todo",
+  "homepage": "https://shaunieboy31.github.io/repo-todo",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
