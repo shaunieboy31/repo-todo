@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/shaunieboy31/repo-todo/static/css/main.b6edb831.css",
+    "main.js": "/shaunieboy31/repo-todo/static/js/main.0541be39.js",
+    "static/js/453.44399d69.chunk.js": "/shaunieboy31/repo-todo/static/js/453.44399d69.chunk.js",
+    "index.html": "/shaunieboy31/repo-todo/index.html",
+    "main.b6edb831.css.map": "/shaunieboy31/repo-todo/static/css/main.b6edb831.css.map",
+    "main.0541be39.js.map": "/shaunieboy31/repo-todo/static/js/main.0541be39.js.map",
+    "453.44399d69.chunk.js.map": "/shaunieboy31/repo-todo/static/js/453.44399d69.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b6edb831.css",
+    "static/js/main.0541be39.js"
+  ]
+}
