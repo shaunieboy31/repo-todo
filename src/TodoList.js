@@ -36,52 +36,72 @@ function TodoList() {
           </div>
         </div>
 
-        {/* Center Column: To Do List */}
-        <div className="bg-pink-200 rounded-2xl p-6 shadow-lg">
-          <h2 className="text-xl font-semibold mb-4 text-gray-700">To Do List</h2>
-          <div className="flex gap-2 mb-4">
-            <input
-              className="flex-1 p-2 rounded border border-pink-300"
-              placeholder="Add a new task"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-            />
-            <button
-              className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600"
-              onClick={handleAdd}
-            >
-              Add
-            </button>
+        {/* Center Column: Upcoming + To Do List */}
+        <div className="flex flex-col gap-6">
+          {/* Upcoming Tasks */}
+          <div className="bg-purple-200 rounded-2xl p-6 shadow-md">
+            <h2 className="text-lg font-semibold mb-4 text-gray-700">Upcoming</h2>
+            <ul>
+              {todos.filter((todo) => !todo.completed).length === 0 && (
+                <li className="text-gray-500 italic">No upcoming tasks.</li>
+              )}
+              {todos
+                .filter((todo) => !todo.completed)
+                .map((todo, index) => (
+                  <li key={index} className="text-gray-700 mb-1">
+                    • {todo.text}
+                  </li>
+                ))}
+            </ul>
           </div>
-          <ul>
-            {todos.map((todo, index) => (
-              <li
-                key={index}
-                className="flex items-center justify-between py-1 border-b border-pink-300"
+
+          {/* To Do List */}
+          <div className="bg-pink-200 rounded-2xl p-6 shadow-lg">
+            <h2 className="text-xl font-semibold mb-4 text-gray-700">To Do List</h2>
+            <div className="flex gap-2 mb-4">
+              <input
+                className="flex-1 p-2 rounded border border-pink-300"
+                placeholder="Add a new task"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+              />
+              <button
+                className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600"
+                onClick={handleAdd}
               >
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={todo.completed}
-                    onChange={() => handleToggle(index)}
-                  />
-                  <span
-                    className={`${
-                      todo.completed ? "line-through text-gray-400" : "text-gray-700"
-                    }`}
-                  >
-                    {todo.text}
-                  </span>
-                </div>
-                <button
-                  className="text-red-400 hover:text-red-600 text-sm"
-                  onClick={() => handleDelete(index)}
+                Add
+              </button>
+            </div>
+            <ul>
+              {todos.map((todo, index) => (
+                <li
+                  key={index}
+                  className="flex items-center justify-between py-1 border-b border-pink-300"
                 >
-                  Delete
-                </button>
-              </li>
-            ))}
-          </ul>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={todo.completed}
+                      onChange={() => handleToggle(index)}
+                    />
+                    <span
+                      className={`${
+                        todo.completed ? "line-through text-gray-400" : "text-gray-700"
+                      }`}
+                    >
+                      {todo.text}
+                    </span>
+                  </div>
+                  <button
+                    className="text-red-400 hover:text-red-600 text-sm"
+                    onClick={() => handleDelete(index)}
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* Right Column: Focus & Remember */}
