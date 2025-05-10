@@ -11,3 +11,13 @@ module.exports = {
   plugins: [],
 }
 
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        beige: '#f5f5dc', // light beige
+      },
+    },
+  },
+  plugins: [],
+};
